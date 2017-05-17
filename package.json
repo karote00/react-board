@@ -1,0 +1,27 @@
+{
+  "name": "react-board",
+  "version": "1.0.0",
+  "description": "React UX Board",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karote00/react-board.git"
+  },
+  "keywords": [
+    "UX",
+    "React",
+    "Board"
+  ],
+  "author": "Asa Tsai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karote00/react-board/issues"
+  },
+  "homepage": "https://github.com/karote00/react-board#readme",
+  "devDependencies": {
+    "webpack": "^2.5.1"
+  }
+}
