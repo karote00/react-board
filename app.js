@@ -1,47 +1,58 @@
 'use strict';
 
-const path = require('path');
-const express = require('express');
-const config = require('./config/webpack.config.js');
-const resolve = file => path.resolve(__dirname, file);
-const isProd = process.env.NODE_ENV === 'production';
+const path            = require('path');
+const express         = require('express');
+const webpackConfig   = require('./webpack.config.js');
+const envConfig       = require('./config/env.js');
+const resolve         = file => path.resolve(__dirname, file);
+const isProd          = envConfig.isProd;
+const port            = envConfig.port;
 
-const port = 5772;
-const app = express();
+const app                   = express();
+const webpack               = require('webpack');
+const webpackDevMiddleware  = require('webpack-dev-middleware');
+const webpackHotMiddleware  = require('webpack-hot-middleware');
 
-const webpack = require('webpack');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const compiler = webpack(config);
-const middleware = webpackMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  // contentBase: 'dist',
-  // stats: {
-  //   colors: true,
-  //   hash: false,
-  //   timings: true,
-  //   chunks: true,
-  //   chunkModules: false,
-  //   modules: false
-  // }
-});
 
 const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 60 * 60 * 24 * 30 : 0
 });
 
+app.use('/client', serve('./client', true));
 app.use('/dist', serve('./dist', true));
 app.use('/public', serve('./public', true));
 app.use('/manifest.json', serve('./manifest.json', true));
 app.use('/service-worker.js', serve('./dist/service-worker.js'));
 
-app.use(middleware);
-app.use(webpackHotMiddleware(compiler));
-app.get('*', function response(req, res) {
-	res.sendFile(path.join(__dirname, '/dist/index.html'));
-});
+if (isProd) {
+  app.get('*', function response(req, res) {
+  	res.sendFile(path.join(__dirname, '/dist/index.html'));
+  });
+} else {
+  // app.get('*', function response(req, res) {
+  //   res.sendFile(path.join(__dirname, '/dist/index.html'));
+  // });
+  const compiler = webpack(webpackConfig);
 
-app.listen(port, 'localhost', function onStart(err) {
+  const middleware = webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath,
+    stats: {
+      colors: true,
+    }
+  });
+
+  app.use(middleware);
+  app.use(webpackHotMiddleware(compiler));
+
+  app.get('*', function response(req, res) {
+    // res.render('app', { message: 'Hey there!' })
+    res.sendFile(path.join(__dirname, '/dist/index.html'));
+  });
+}
+
+
+app.listen(port, function onStart(err) {
   if (err) {
     console.log(err);
   }

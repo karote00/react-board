@@ -1,13 +1,20 @@
-const webpack           = require('webpack');
-const path              = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HTMLPlugin        = require('html-webpack-plugin');
-const SWPrecachePlugin  = require('sw-precache-webpack-plugin');
-const extractCSS        = new ExtractTextPlugin('stylesheets/[name].css');
+const webpack             = require('webpack');
+const path                = require('path');
+const ExtractTextPlugin   = require('extract-text-webpack-plugin');
+const HTMLPlugin          = require('html-webpack-plugin');
+const SWPrecachePlugin    = require('sw-precache-webpack-plugin');
+const extractCSS          = new ExtractTextPlugin('stylesheets/[name].css');
+const envConfig           = require('./config/env.js');
+const publicPath          = 'http://localhost:' + envConfig.port + '/';
+const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
+const hotMiddlewareScript2 = 'webpack-hot-middleware/client';
 
 const config = {
-  entry: './client/app.js',
-  devtool: 'source-map',
+  entry: {
+    app: ['./client/app.js', hotMiddlewareScript2]
+  },
+  devtool: 'eval',
+  // target: 'node',
   module: {
     rules: [
       {
@@ -32,9 +39,9 @@ const config = {
     ]
   },
   output: {
-    filename: '[name].[chunkhash].js',
-    publicPath: '../dist',
-    path: path.resolve(__dirname, '../dist')
+    filename: '[name].[hash].js',
+    publicPath: './client',
+    path: path.resolve(__dirname, './dist'),
   },
   plugins: [
     new ExtractTextPlugin({
@@ -43,7 +50,9 @@ const config = {
     }),
     new HTMLPlugin({
       template: 'client/index.html'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 };
 
