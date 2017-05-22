@@ -20,16 +20,12 @@ const serve = (path, cache) => express.static(resolve(path), {
 app.use('/client', serve('./client', true));
 app.use('/dist', serve('./dist', true));
 app.use('/manifest.json', serve('./manifest.json', true));
-// app.use('/service-worker.js', serve('./dist/service-worker.js'));
 
 if (isProd) {
   app.get('*', (req, res) => {
   	res.sendFile(path.join(__dirname, '/dist/index.html'));
   });
 } else {
-  // app.get('*', function response(req, res) {
-  //   res.sendFile(path.join(__dirname, '/dist/index.html'));
-  // });
   const compiler = webpack(webpackConfig);
 
   const middleware = webpackDevMiddleware(compiler, {

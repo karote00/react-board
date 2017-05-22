@@ -4,11 +4,11 @@ const ExtractTextPlugin   = require('extract-text-webpack-plugin');
 const HTMLWebpackPlugin   = require('html-webpack-plugin');
 const SWPrecachePlugin    = require('sw-precache-webpack-plugin');
 const extractCSS          = new ExtractTextPlugin('stylesheets/[name].css');
-const envConfig           = require('./config/env.js');
 const hotMiddlewareScript = 'webpack-hot-middleware/client';
-const hotMiddlewareScript2 = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
-const hotMiddlewareScript3 = 'webpack-hot-middleware/client?path=http://localhost:5772';
-const publicPath = path.resolve(__dirname, './dist');
+const publicPath          = path.resolve(__dirname, './dist');
+const envConfig           = require('./config/env.js');
+const isProd              = envConfig.isProd;
+const bundlePath          = isProd? '/dist': '/client';
 
 const config = {
   context: __dirname,
@@ -18,7 +18,7 @@ const config = {
       './client/app.js'
     ],
   },
-  devtool: 'eval',
+  devtool: isProd? 'source-map': 'eval',
   // target: 'node',
   module: {
     rules: [
@@ -45,8 +45,8 @@ const config = {
   },
   output: {
     filename: 'bundle.js',
-    publicPath: path.resolve(__dirname, '/client'),
-    path: '/client'
+    publicPath: path.resolve(__dirname, bundlePath),
+    path: bundlePath
   },
   plugins: [
     new ExtractTextPlugin({
