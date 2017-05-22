@@ -13,19 +13,17 @@ const webpack               = require('webpack');
 const webpackDevMiddleware  = require('webpack-dev-middleware');
 const webpackHotMiddleware  = require('webpack-hot-middleware');
 
-
 const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 60 * 60 * 24 * 30 : 0
 });
 
 app.use('/client', serve('./client', true));
 app.use('/dist', serve('./dist', true));
-app.use('/public', serve('./public', true));
 app.use('/manifest.json', serve('./manifest.json', true));
-app.use('/service-worker.js', serve('./dist/service-worker.js'));
+// app.use('/service-worker.js', serve('./dist/service-worker.js'));
 
 if (isProd) {
-  app.get('*', function response(req, res) {
+  app.get('*', (req, res) => {
   	res.sendFile(path.join(__dirname, '/dist/index.html'));
   });
 } else {
@@ -35,24 +33,52 @@ if (isProd) {
   const compiler = webpack(webpackConfig);
 
   const middleware = webpackDevMiddleware(compiler, {
+    // headers: { 'Access-Control-Allow-Origin': '*' },
     noInfo: true,
+    // hot: true,
+    // inline: true,
+    // headers: { 'X-Custom-Header': 'yes' },
     publicPath: webpackConfig.output.publicPath,
     stats: {
       colors: true,
-    }
+      chunks: false
+    },
+    // historyApiFallback: true
   });
+
+  const fs = middleware.fileSystem;
+  const filePath = path.join(webpackConfig.output.path, 'index.html');
 
   app.use(middleware);
-  app.use(webpackHotMiddleware(compiler));
 
-  app.get('*', function response(req, res) {
-    // res.render('app', { message: 'Hey there!' })
-    res.sendFile(path.join(__dirname, '/dist/index.html'));
+  compiler.plugin('done', () => {
+    app.get('/', (req, res, next) => {
+      // if (fs.existsSync(filePath)) {
+      //   const index = fs.readFileSync(filePath, 'utf-8');
+      //   // res.setHeader('Content-Encoding', 'identity');
+      //   // res.setHeader('Content-Type', 'application/json');
+      //   // res.setHeader('Content-Type', 'text/html');
+      //   // res.setHeader('Accept', 'application/json');
+      //   res.send(index);
+      //   // res.sendFile(filePath)
+      // }
+      res.sendFile(__dirname + '/client/index.html')
+    });
   });
+
+  app.use(webpackHotMiddleware(compiler, {
+    log: console.log,
+    reload: true,
+    path: '/__webpack_hmr',
+    heartbeat: 10 * 1000
+  }));
+
+
+
 }
 
 
-app.listen(port, function onStart(err) {
+app.listen(port, (err) => {
   if (err) {
     console.log(err);
   }

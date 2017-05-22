@@ -1,17 +1,22 @@
 const webpack             = require('webpack');
 const path                = require('path');
 const ExtractTextPlugin   = require('extract-text-webpack-plugin');
-const HTMLPlugin          = require('html-webpack-plugin');
+const HTMLWebpackPlugin   = require('html-webpack-plugin');
 const SWPrecachePlugin    = require('sw-precache-webpack-plugin');
 const extractCSS          = new ExtractTextPlugin('stylesheets/[name].css');
 const envConfig           = require('./config/env.js');
-const publicPath          = 'http://localhost:' + envConfig.port + '/';
-const hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
-const hotMiddlewareScript2 = 'webpack-hot-middleware/client';
+const hotMiddlewareScript = 'webpack-hot-middleware/client';
+const hotMiddlewareScript2 = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
+const hotMiddlewareScript3 = 'webpack-hot-middleware/client?path=http://localhost:5772';
+const publicPath = path.resolve(__dirname, './dist');
 
 const config = {
+  context: __dirname,
   entry: {
-    app: ['./client/app.js', hotMiddlewareScript2]
+    app: [
+      hotMiddlewareScript,
+      './client/app.js'
+    ],
   },
   devtool: 'eval',
   // target: 'node',
@@ -39,18 +44,19 @@ const config = {
     ]
   },
   output: {
-    filename: '[name].[hash].js',
-    publicPath: './client',
-    path: path.resolve(__dirname, './dist'),
+    filename: 'bundle.js',
+    publicPath: path.resolve(__dirname, '/client'),
+    path: '/client'
   },
   plugins: [
     new ExtractTextPlugin({
       filename: 'styles.[hash].css',
       allChunks: true
     }),
-    new HTMLPlugin({
-      template: 'client/index.html'
-    }),
+    new HTMLWebpackPlugin(),
+    // new HTMLWebpackPlugin({
+    //   template: 'client/index.html'
+    // }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ]
