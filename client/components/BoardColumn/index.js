@@ -25,7 +25,6 @@ class BoardColumn extends Component {
 	handleColumnsChange(obj) {
 		let columns = this.state.columns.map((c) => {
 			if (obj.target == c.name) {
-				console.log('find')
 				c[obj.type] = obj.value;
 			}
 
