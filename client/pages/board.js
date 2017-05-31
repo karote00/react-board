@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Router, Route, Switch } from 'react-router';
+import BoardColumn from '../components/BoardColumn';
 
 class Board extends Component {
 	constructor(props) {
@@ -7,7 +9,11 @@ class Board extends Component {
 
 	render() {
 		return (
-			<div>Hello World!YO~~</div>
+				<div className="board-container">
+					<div className="board-content">
+						<BoardColumn />
+					</div>
+				</div>
 		)
 	}
 }
