@@ -5,12 +5,13 @@ class Column extends Component {
 		super(props);
 
 		this.state = {
-			edit: 'none'
-			// edit: 'header'
+			edit: 'none',
+			header: this.props.name
 		}
 
 		this.handleHeaderEdit = this.handleHeaderEdit.bind(this);
 		this.handleHeaderChange = this.handleHeaderChange.bind(this);
+		this.handleHeaderBlur = this.handleHeaderBlur.bind(this);
 	}
 
 	componentDidMount() {
@@ -20,10 +21,25 @@ class Column extends Component {
 	handleHeaderEdit() {
 		this.setState(() => {
 			return {edit: 'header'};
-		})
+		});
+
+		((self) => {setTimeout(function() {
+				self.refs.ch.focus();
+			}, 10);
+		})(this);
 	}
 
 	handleHeaderChange() {
+		this.setState(() => {
+			return {header: this.refs.ch.value};
+		})
+	}
+
+	handleHeaderBlur() {
+		this.setState(() => {
+			return {edit: 'none'};
+		});
+
 		this.props.handleColumnsChange({
 			target: this.props.name,
 			type: "name",
@@ -36,9 +52,9 @@ class Column extends Component {
 			<div className="column">
 				<div className="column-header" onClick={this.handleHeaderEdit}>
 					{this.state.edit == 'header'?
-						<input ref="ch" type="text" value={this.props.name} onChange={this.handleHeaderChange} />
+						<input ref="ch" type="text" value={this.state.header} onChange={this.handleHeaderChange} onBlur={this.handleHeaderBlur} />
 						:
-						<div>{this.props.name}</div>
+						<div>{this.state.header}</div>
 					}
 				</div>
 			</div>
