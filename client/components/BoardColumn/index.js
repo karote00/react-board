@@ -11,40 +11,66 @@ class BoardColumn extends Component {
 			columns: [{
 				name: 'Features'
 			}]
-		}
+		};
 
 		this.handleKeyPress = this.handleKeyPress.bind(this);
+		this.handleColumnsChange = this.handleColumnsChange.bind(this);
+		this.handleColumnAdd = this.handleColumnAdd.bind(this);
 	}
 
 	handleKeyPress(tar) {
-		if (tar.charCode == 13) {
-			const adc = this.refs.adc;
-			const value = adc.value;
+		if (tar.charCode == 13) this.ColumnAdd(tar);
+	}
 
-			if (value) {
-				this.setState(() => {
-					let columns = this.state.columns.push({name: value});
-					return columns;
+	handleColumnsChange(obj) {
+		let columns = this.state.columns.map((c) => {
+			if (obj.target == c.name) {
+				console.log('find')
+				c[obj.type] = obj.value;
+			}
+
+			return c;
+		});
+
+		this.setState(() => columns);
+	}
+
+	handleColumnAdd(tar) {
+		this.ColumnAdd(tar);
+	}
+
+	ColumnAdd(tar) {
+		const adc = this.refs.adc;
+		const value = adc.value;
+
+		if (value) {
+			this.setState(() => {
+				let columns = this.state.columns.push({
+					id: value,
+					name: value
 				});
 
-				adc.value = '';
-			}
+				return columns;
+			});
+
+			adc.value = '';
 		}
+
+		tar.preventDefault(true);
+		tar.stopPropagation(true);
 	}
 
 	render() {
 		const columns = this.state.columns.map((c, idx) => {
-			return <Column key={idx} {...c} />;
+			return <Column key={c.name} {...c} handleColumnsChange={this.handleColumnsChange} />;
 		});
 
 		return (
-			<div className="column-container" style={{width: 280 * (columns.length + 1) + 10 + 'px'}}>
-				<div className="column-content">
+			<div className="column-container">
+				<div className="column-content" style={{width: 280 * (columns.length + 1) + 10 + 'px'}}>
 					{columns}
-				</div>
-				<div className="column-empty">
 					<div className="column">
-						<form>
+						<form onSubmit={this.handleColumnAdd}>
 							<input className="column-name-add-input" ref="adc" type="text" placeholder="Add a list..." onKeyPress={this.handleKeyPress} />
 							<div className="column-add-ctrls">
 								<input type="submit" value="Save" className="primary cloumn-add-btn" />

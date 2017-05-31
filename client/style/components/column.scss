@@ -4,7 +4,11 @@
 
 .column-empty {
 	display: inline-block;
-	margin: 0 10px 0 5px;
+
+	.column {
+		padding: 8px 5px;
+		margin: 0 10px 0 5px;
+	}
 }
 
 .column-content {
