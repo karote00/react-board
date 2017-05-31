@@ -1,7 +1,10 @@
+@import "./color_scheme.scss";
+
 * {
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+	vertical-align: top;
 }
 
 ul {
@@ -15,22 +18,29 @@ img {
 
 a {
 	text-decoration: none;
-	color: #022f40;
+	color: #111;
+}
+
+input {
+	font: 14px "Helvetica Neue",Arial,Helvetica,sans-serif;
+}
+
+input[type="text"] {
+	padding: 7px;
+}
+
+input[type="submit"] {
+	display: inline-block;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	font-weight: 700;
+	line-height: 22px;
+	margin: 8px 4px 0 0;
+	padding: 7px 20px;
 }
 
 input[type="radio"] {
 	display: none;
 }
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: white;
-}
-::-moz-placeholder { /* Firefox 19+ */
-  color: white;
-}
-:-ms-input-placeholder { /* IE 10+ */
-  color: white;
-}
-:-moz-placeholder { /* Firefox 18- */
-  color: white;
-}

@@ -1,0 +1,120 @@
+@import "./color_scheme.scss";
+
+@mixin box-sizing($value...){
+  -webkit-box-sizing: $value;
+  -moz-box-sizing: $value;
+  box-sizing: $value;
+}
+@mixin box-shadow($value){
+  -webkit-box-shadow: $value;
+  -moz-box-shadow: $value;
+  box-shadow: $value;
+}
+@mixin border-radius($value){
+  -moz-border-radius: $value;
+  -webkit-radius: $value;
+  border-radius: $value;
+}
+@mixin background-size($value){
+  -o-background-size: $value;
+  -webkit-background-size: $value;
+  -moz-background-size: $value;
+  background-size: $value;
+}
+@mixin linear-gradient($angle,$gradient1, $gradient2) {
+  background-color: $gradient2; /* Fallback Color */
+  background-image: -webkit-gradient(linear, $angle, from($gradient1), to($gradient2)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient($angle, $gradient1, $gradient2); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient($angle, $gradient1, $gradient2); /* FF3.6 */
+  background-image:     -ms-linear-gradient($angle, $gradient1, $gradient2); /* IE10 */
+  background-image:      -o-linear-gradient($angle, $gradient1, $gradient2); /* Opera 11.10+ */
+  background-image:         linear-gradient($angle, $gradient1, $gradient2);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=$angle,StartColorStr='#{$gradient1}', EndColorStr='#{$gradient2}');
+}
+
+// === Animations
+
+@mixin transition($value) {
+  -webkit-transition: $value;
+  transition: $value;
+}
+@mixin transform($value) {
+  -o-transform: $value;
+  -ms-transform: $value;
+  -webkit-transform: $value;
+  transform: $value;
+}
+@mixin transform-origin ($value) {
+  -o-transform-origin: $value;
+  -ms-transform-origin: $value;
+  -webkit-transform-origin: $value;
+  transform-origin: $value;
+}
+@mixin animation($name, $duration, $timing, $type){
+  -o-animation: $name $duration $timing $type;
+  -moz-animation: $name $duration $timing $type;
+  -webkit-animation: $name $duration $timing $type;
+  animation: $name $duration $timing $type;
+}
+@mixin animation-delay($value){
+  -o-animation: $value;
+  -moz-animation: $value;
+  -webkit-animation: $value;
+  animation: $value;
+}
+@mixin keyframes($value) {
+  @-webkit-keyframes #{$value} {
+    @content;
+  }
+  @-moz-keyframes #{$value} {
+    @content;
+  }
+  @-o-keyframes #{$value} {
+    @content;
+  }
+  @keyframes #{$value} {
+    @content;
+  }
+}
+
+// === Filters
+
+@mixin filter($value){
+  -o-filter: $value;
+  -ms-filter: $value;
+  -webkit-filter: $value;
+  -moz-filter: $value;
+  filter: $value;
+}
+
+// === Browser mods
+
+@mixin appearance($value){
+  -moz-appearance: $value;
+  -webkit-appearance: $value;
+  appearance: $value;
+}
+@mixin user-select($value){
+  -webkit-touch-callout: $value;
+  -webkit-user-select: $value;
+  -khtml-user-select: $value;
+  -moz-user-select: $value;
+  -ms-user-select: $value;
+  user-select: $value;
+}
+
+/** placholder */
+@mixin placholder {
+	::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	  @content;
+	}
+	::-moz-placeholder { /* Firefox 19+ */
+	  @content;
+	}
+	:-ms-input-placeholder { /* IE 10+ */
+	  @content;
+	}
+	:-moz-placeholder { /* Firefox 18- */
+	  @content;
+	}
+}

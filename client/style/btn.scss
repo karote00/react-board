@@ -1,0 +1,12 @@
+@import "./color_scheme.scss";
+@import "./mixin.scss";
+
+.primary {
+	@include linear-gradient(to bottom, $primary_lg_s, $primary_lg_e);
+	box-shadow: 0 1px 0 #3F6F21;
+	color: white;
+
+	&:hover {
+		@include linear-gradient(to bottom, $primary_lg_e, $primary_lg_h);
+	}
+}
