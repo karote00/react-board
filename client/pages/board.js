@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router';
 import BoardColumn from '../components/BoardColumn';
+import '../style/main.scss';
+import '../style/components/board.scss';
+
 
 class Board extends Component {
 	constructor(props) {
