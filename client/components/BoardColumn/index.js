@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Column from './Column';
+// import Column from './Column';
+import VisibleColumn from '../../containers/column';
 import '../../style/components/column.scss';
 import '../../style/components/form.scss';
 
@@ -61,7 +62,7 @@ class BoardColumn extends Component {
 
 	render() {
 		const columns = this.state.columns.map((c, idx) => {
-			return <Column key={c.name} {...c} handleColumnsChange={this.handleColumnsChange} />;
+			return <VisibleColumn key={c.name} {...c} handleColumnsChange={this.handleColumnsChange} />;
 		});
 
 		return (

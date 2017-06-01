@@ -5,28 +5,30 @@ class Column extends Component {
 		super(props);
 
 		this.state = {
-			edit: 'NONE',
 			header: this.props.name
 		}
 
 		this.handleHeaderEdit = this.handleHeaderEdit.bind(this);
 		this.handleHeaderChange = this.handleHeaderChange.bind(this);
-		this.handleHeaderBlur = this.handleHeaderBlur.bind(this);
+		this.handleBlur = this.handleBlur.bind(this);
 	}
 
 	componentDidMount() {
 
 	}
 
-	handleHeaderEdit() {
-		this.setState(() => {
-			return {edit: 'HEADER'};
-		});
+	componentWillReceiveProps(nextProps) {
+		const edit = nextProps.editItem;
+		if (edit && edit != 'NONE') {
+			((self) => {setTimeout(function() {
+					self.refs[edit].focus();
+				}, 10);
+			})(this);
+		}
+	}
 
-		((self) => {setTimeout(function() {
-				self.refs.ch.focus();
-			}, 10);
-		})(this);
+	handleHeaderEdit() {
+		this.props.onInputEditClick('HEADER');
 	}
 
 	handleHeaderChange() {
@@ -35,15 +37,13 @@ class Column extends Component {
 		})
 	}
 
-	handleHeaderBlur() {
-		this.setState(() => {
-			return {edit: 'NONE'};
-		});
+	handleBlur() {
+		this.props.onInputEditClick('NONE');
 
 		this.props.handleColumnsChange({
 			target: this.props.name,
 			type: "name",
-			value: this.refs.ch.value
+			value: this.refs.HEADER.value
 		});
 	}
 
@@ -51,8 +51,8 @@ class Column extends Component {
 		return (
 			<div className="column">
 				<div className="column-header" onClick={this.handleHeaderEdit}>
-					{this.state.edit == 'HEADER'?
-						<input ref="ch" type="text" value={this.state.header} onChange={this.handleHeaderChange} onBlur={this.handleHeaderBlur} />
+					{this.props.editItem == 'HEADER'?
+						<input ref="HEADER" type="text" value={this.state.header} onChange={this.handleHeaderChange} onBlur={this.handleBlur} />
 						:
 						<div>{this.state.header}</div>
 					}
