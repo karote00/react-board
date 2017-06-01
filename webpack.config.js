@@ -18,7 +18,7 @@ const config = {
       './client/app.js'
     ],
   },
-  devtool: isProd? 'source-map': 'eval',
+  devtool: isProd? 'source-map': 'cheap-module-eval-source-map',
   // target: 'node',
   module: {
     rules: [
