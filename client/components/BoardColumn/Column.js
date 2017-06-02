@@ -33,7 +33,7 @@ class Column extends Component {
 
 	handleHeaderChange() {
 		this.setState(() => {
-			return {header: this.refs.ch.value};
+			return {header: this.refs.HEADER.value};
 		})
 	}
 

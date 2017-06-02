@@ -1,4 +1,4 @@
-// import { createAction, handleActions } from 'redux-actions';
+// import { createAction, createActions, handleActions } from 'redux-actions';
 // import createTypes from 'redux-create-action-types';
 
 // // const EDIT = createTypes('BOARD_COLUMN_EDIT');
@@ -19,7 +19,6 @@
 // }
 
 export const TOGGLE_INPUT_EDIT = 'TOGGLE_INPUT_EDIT';
-
 export const toggleInputEdit = (item) => {
 	return {
 		type: TOGGLE_INPUT_EDIT,
