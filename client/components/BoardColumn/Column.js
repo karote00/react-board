@@ -21,7 +21,7 @@ class Column extends Component {
 		const edit = nextProps.editItem;
 		if (edit && edit != 'NONE') {
 			((self) => {setTimeout(function() {
-					self.refs[edit].focus();
+					self.refs[edit].select();
 				}, 10);
 			})(this);
 		}
@@ -50,12 +50,8 @@ class Column extends Component {
 	render() {
 		return (
 			<div className="column">
-				<div className="column-header" onClick={this.handleHeaderEdit}>
-					{this.props.editItem == 'HEADER'?
-						<input ref="HEADER" type="text" value={this.state.header} onChange={this.handleHeaderChange} onBlur={this.handleBlur} />
-						:
-						<div>{this.state.header}</div>
-					}
+				<div className="column-header">
+					<textarea ref="HEADER" className={this.props.editItem == 'HEADER'? 'is-editing': ''} type="text" value={this.state.header} onClick={this.handleHeaderEdit} onChange={this.handleHeaderChange} onBlur={this.handleBlur} />
 				</div>
 			</div>
 		)

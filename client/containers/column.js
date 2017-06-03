@@ -12,7 +12,7 @@ const mapStateToProps = (state, action) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onInputEditClick: (item) => {
-			dispatch(toggleInputEdit(item))
+			dispatch(toggleInputEdit.request(item))
 		}
 	}
 }

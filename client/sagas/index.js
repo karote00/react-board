@@ -4,11 +4,12 @@ import { TOGGLE_INPUT_EDIT, toggleInputEdit } from '../actions/boardColumn';
 
 export function* watchBoardColumnInputEdit() {
 	try {
-		// while (true) {
-		// 	const edit = yield call(toggleInputEdit, {TOGGLE_INPUT_EDIT});
-		// }
+		while (true) {
+			const { payload } = yield take(toggleInputEdit.request, TOGGLE_INPUT_EDIT.REQUEST);
+			yield put(toggleInputEdit.success(payload));
+		}
 	} catch(error) {
-
+		yield call(toggleInputEdit.failed)
 	}
 }
 
