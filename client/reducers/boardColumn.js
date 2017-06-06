@@ -2,7 +2,7 @@ import { TOGGLE_EDIT_ITEM } from '../actions/boardColumn';
 
 let initState = 'NONE';
 
-function boardColumnEdit(state = initState, action) {
+function columnEdit(state = initState, action) {
 	switch(action.type) {
 		case TOGGLE_EDIT_ITEM.REQUEST:
 			return 'NONE';
