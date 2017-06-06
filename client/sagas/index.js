@@ -1,20 +1,20 @@
-import { take, put, call, fork, race, cancelled } from 'redux-saga/effects';
+import { take, put, call, fork, race, cancelled, select } from 'redux-saga/effects';
 import { eventChannel, END } from 'redux-saga';
-import { TOGGLE_INPUT_EDIT, toggleInputEdit } from '../actions/boardColumn';
+import { TOGGLE_EDIT_ITEM, toggleEditItem } from '../actions/boardColumn';
 
-export function* watchBoardColumnInputEdit() {
+export function* watchBoardColumnEdit() {
 	try {
 		while (true) {
-			const { payload } = yield take(toggleInputEdit.request, TOGGLE_INPUT_EDIT.REQUEST);
-			yield put(toggleInputEdit.success(payload));
+			const { payload } = yield take(TOGGLE_EDIT_ITEM.REQUEST, toggleEditItem.request);
+			yield put(toggleEditItem.success(payload));
 		}
 	} catch(error) {
-		yield call(toggleInputEdit.failed)
+		yield put(toggleEditItem.failed(error))
 	}
 }
 
 function* rootSaga() {
-	yield fork(watchBoardColumnInputEdit)
+	yield fork(watchBoardColumnEdit)
 }
 
 export default rootSaga;

@@ -1,7 +1,7 @@
 import { combineReducers } from 'react-redux';
-import boardColumnEdit from './boardColumn';
+import columnEdit from './boardColumn';
 
-const rootReducer = boardColumnEdit;
+const rootReducer = columnEdit;
 
 // const rootReducer = combineReducers({
 //   boardColumnEdit

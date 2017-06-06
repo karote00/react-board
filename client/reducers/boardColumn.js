@@ -1,21 +1,18 @@
-import {
-	TOGGLE_INPUT_EDIT,
-	toggleInputEdit
-} from '../actions/boardColumn';
+import { TOGGLE_EDIT_ITEM } from '../actions/boardColumn';
 
 let initState = 'NONE';
 
 function boardColumnEdit(state = initState, action) {
 	switch(action.type) {
-		case TOGGLE_INPUT_EDIT.REQUEST:
+		case TOGGLE_EDIT_ITEM.REQUEST:
 			return 'NONE';
-		case TOGGLE_INPUT_EDIT.SUCCESS:
+		case TOGGLE_EDIT_ITEM.SUCCESS:
 			return action.payload.item;
-		case TOGGLE_INPUT_EDIT.FAILED:
+		case TOGGLE_EDIT_ITEM.FAILED:
 			return 'NONE';
 		default:
 			return state;
 	}
 }
 
-export default boardColumnEdit;
+export default columnEdit;

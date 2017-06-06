@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
-import boardColumnEdit from '../reducers/boardColumn';
-import { toggleInputEdit } from '../actions/boardColumn';
+import columnEdit from '../reducers/boardColumn';
+import { toggleEditItem } from '../actions/boardColumn';
 import Column from '../components/BoardColumn/Column';
 
 const mapStateToProps = (state, action) => {
 	return {
-		editItem: boardColumnEdit(state, action)
+		editItem: columnEdit(state, action)
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onInputEditClick: (item) => {
-			dispatch(toggleInputEdit.request(item))
+			dispatch(toggleEditItem.request(item))
 		}
 	}
 }
