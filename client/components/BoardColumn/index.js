@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import Column from './Column';
-import VisibleColumn from '../../containers/column';
+import VisibleColumn from '../../containers/VisibleColumn';
 import '../../style/components/column.scss';
 import '../../style/components/form.scss';
 
