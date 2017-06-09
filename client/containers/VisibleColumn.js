@@ -12,16 +12,7 @@ const mapStateToProps = (state, action) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onInputEditClick: async (item) => {
-			dispatch(toggleEditItem(item, 'REQUEST'))
-
-			try {
-				const editItem = await api.getToggleEditItem(item);
-				dispatch(toggleEditItem(item, 'SUCCESS'))
-			} catch(err) {
-				dispatch(toggleEditItem(item, 'FAILED'))
-			}
-		}
+		onInputEditClick: (item) => dispatch(toggleEditItem(item))
 	}
 }
 

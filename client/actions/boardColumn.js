@@ -1,8 +1,4 @@
-export const TOGGLE_EDIT_ITEM = {
-	REQUEST: 'TOGGLE_EDIT_ITEM_REQUEST',
-	SUCCESS: 'TOGGLE_EDIT_ITEM_SUCCESS',
-	FAILED: 'TOGGLE_EDIT_ITEM_FAILED',
-};
+export const TOGGLE_EDIT_ITEM = "TOGGLE_EDIT_ITEM";
 
 export const GET_COLUMNS = {
 	REQUEST: 'GET_COLUMNS_REQUEST',
@@ -11,19 +7,21 @@ export const GET_COLUMNS = {
 }
 
 /** regular action */
-export const toggleEditItem = (item, status) => {
-	console.log(item, status)
+export const toggleEditItem = (item) => {
 	return {
-		type: TOGGLE_EDIT_ITEM[status],
+		type: TOGGLE_EDIT_ITEM,
 		payload: {
 			item
 		}
 	}
 }
 
-export const getColumns = (status) => {
+export const getColumns = (status, columns) => {
 	return {
-		type: GET_COLUMNS[status]
+		type: GET_COLUMNS[status],
+		payload: {
+			columns
+		}
 	}
 }
 
