@@ -4,13 +4,26 @@ export const TOGGLE_EDIT_ITEM = {
 	FAILED: 'TOGGLE_EDIT_ITEM_FAILED',
 };
 
+export const GET_COLUMNS = {
+	REQUEST: 'GET_COLUMNS_REQUEST',
+	SUCCESS: 'GET_COLUMNS_SUCCESS',
+	FAILED: 'GET_COLUMNS_FAILED'
+}
+
 /** regular action */
 export const toggleEditItem = (item, status) => {
+	console.log(item, status)
 	return {
 		type: TOGGLE_EDIT_ITEM[status],
 		payload: {
 			item
 		}
+	}
+}
+
+export const getColumns = (status) => {
+	return {
+		type: GET_COLUMNS[status]
 	}
 }
 
