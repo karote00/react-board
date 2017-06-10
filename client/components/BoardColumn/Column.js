@@ -18,7 +18,7 @@ class Column extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const edit = nextProps.editItem;
+		const edit = nextProps.editItem[this.props.id];
 		if (edit && edit != 'NONE') {
 			((self) => {setTimeout(function() {
 					self.refs[edit].select();
@@ -28,7 +28,7 @@ class Column extends Component {
 	}
 
 	handleHeaderEdit() {
-		this.props.onInputEditClick('HEADER');
+		this.props.onInputEditClick(this.props.id, 'HEADER');
 	}
 
 	handleHeaderChange() {
@@ -38,20 +38,22 @@ class Column extends Component {
 	}
 
 	handleBlur() {
-		this.props.onInputEditClick('NONE');
+		this.props.onInputEditClick(this.props.id, 'NONE');
 
-		this.props.handleColumnsChange({
-			target: this.props.name,
-			type: "name",
-			value: this.refs.HEADER.value
-		});
+		if (this.refs.HEADER.value != this.props.name) {
+			this.props.handleColumnsChange({
+				target: this.props.name,
+				type: "name",
+				value: this.refs.HEADER.value
+			});
+		}
 	}
 
 	render() {
 		return (
 			<div className="column">
 				<div className="column-header">
-					<textarea ref="HEADER" className={this.props.editItem == 'HEADER'? 'is-editing': ''} type="text" value={this.state.header} onClick={this.handleHeaderEdit} onChange={this.handleHeaderChange} onBlur={this.handleBlur} />
+					<textarea ref="HEADER" className={this.props.editItem[this.props.id] == 'HEADER'? 'is-editing': ''} type="text" value={this.state.header} onClick={this.handleHeaderEdit} onChange={this.handleHeaderChange} onBlur={this.handleBlur} />
 				</div>
 			</div>
 		)

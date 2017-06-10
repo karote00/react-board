@@ -7,10 +7,11 @@ export const GET_COLUMNS = {
 }
 
 /** regular action */
-export const toggleEditItem = (item) => {
+export const toggleEditItem = (id, item) => {
 	return {
 		type: TOGGLE_EDIT_ITEM,
 		payload: {
+			id,
 			item
 		}
 	}
