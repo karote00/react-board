@@ -1,12 +1,16 @@
 import { combineReducers } from 'redux';
 import {
 	TOGGLE_EDIT_ITEM,
-	GET_COLUMNS
+	GET_COLUMNS,
+	ADD_COLUMN
 } from '../actions/boardColumn';
 
 let initState = {
 	columnEdit: {},
-	columns: []
+	columns: {
+		items: []
+	},
+	status: 'NORMAL'
 };
 
 function columnEdit(state = initState.columnEdit, action) {
@@ -22,26 +26,51 @@ function columnEdit(state = initState.columnEdit, action) {
 }
 
 function columns(state = initState.columns, action) {
-	if (Object.keys(action).length == 0 || !action.payload) return state;
+	// if (Object.keys(action).length == 0 || !action.payload) return state;
 
 	switch(action.type) {
 		case GET_COLUMNS.REQUEST:
-			return state;
+			return {
+				...state,
+				status: 'PENDING'
+			};
 		case GET_COLUMNS.SUCCESS:
 			let columnsIDs = action.payload.columns.map(c => c.id);
-			let oldIDs = state.map(s => s.id);
+			let oldIDs = state.items.map(s => s.id);
 			let newColumns = [];
 			columnsIDs.forEach((c, idx) => {
 				if (oldIDs.indexOf(c) == -1)
 					newColumns.push(action.payload.columns[idx]);
 			});
 
-			return [
+			return {
 				...state,
-				...newColumns
-			];
+				items: [
+					...state.items,
+					...newColumns
+				],
+				status: 'NORMAL'
+			};
 		case GET_COLUMNS.FAILED:
-			return state;
+			return {
+				...state,
+				status: 'FAILED'
+			};
+		case ADD_COLUMN.REQUEST:
+			return {
+				...state,
+				status: 'PENDING'
+			};
+		case ADD_COLUMN.SUCCESS:
+			return {
+				...state,
+				status: 'NORMAL'
+			};
+		case ADD_COLUMN.FAILED:
+			return {
+				...state,
+				status: 'FAILED'
+			};
 		default:
 			return state;
 	}
