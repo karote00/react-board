@@ -57,14 +57,6 @@ class BoardColumn extends Component {
 				id: value,
 				name: value
 			});
-			this.setState(() => {
-				let columns = this.state.columns.push({
-					id: value,
-					name: value
-				});
-
-				return columns;
-			});
 
 			adc.value = '';
 		}
