@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router';
-import BoardColumn from '../components/BoardColumn';
+// import BoardColumn from '../components/BoardColumn';
+import VisibleBoardColumn from '../containers/VisibleBoardColumn';
 import '../style/main.scss';
 import '../style/components/board.scss';
 
@@ -14,7 +15,7 @@ class Board extends Component {
 		return (
 				<div className="board-container">
 					<div className="board-content">
-						<BoardColumn />
+						<VisibleBoardColumn />
 					</div>
 				</div>
 		)
