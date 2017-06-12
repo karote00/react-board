@@ -6,6 +6,12 @@ export const GET_COLUMNS = {
 	FAILED: 'GET_COLUMNS_FAILED'
 }
 
+export const ADD_COLUMN = {
+	REQUEST: 'ADD_COLUMN_REQUEST',
+	SUCCESS: 'ADD_COLUMN_SUCCESS',
+	FAILED: 'ADD_COLUMN_FAILED'
+}
+
 /** regular action */
 export const toggleEditItem = (id, item) => {
 	return {
@@ -22,6 +28,15 @@ export const getColumns = (status, columns) => {
 		type: GET_COLUMNS[status],
 		payload: {
 			columns
+		}
+	}
+}
+
+export const addColumn = (status, column) => {
+	return {
+		type: ADD_COLUMN[status],
+		payload: {
+			column
 		}
 	}
 }
