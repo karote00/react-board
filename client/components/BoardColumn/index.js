@@ -10,6 +10,7 @@ class BoardColumn extends Component {
 
 		this.state = {
 			columns: [{
+				id: 0,
 				name: 'Features'
 			}]
 		};
@@ -17,6 +18,14 @@ class BoardColumn extends Component {
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.handleColumnsChange = this.handleColumnsChange.bind(this);
 		this.handleColumnAdd = this.handleColumnAdd.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.getColumns();
+	}
+
+	componentWillReceiveProps(nextProps) {
+
 	}
 
 	handleKeyPress(tar) {
@@ -44,6 +53,10 @@ class BoardColumn extends Component {
 		const value = adc.value;
 
 		if (value) {
+			this.props.addColumn({
+				id: value,
+				name: value
+			});
 			this.setState(() => {
 				let columns = this.state.columns.push({
 					id: value,
@@ -61,7 +74,7 @@ class BoardColumn extends Component {
 	}
 
 	render() {
-		const columns = this.state.columns.map((c, idx) => {
+		const columns = this.props.columns.items.map((c, idx) => {
 			return <VisibleColumn key={c.name} {...c} handleColumnsChange={this.handleColumnsChange} />;
 		});
 
