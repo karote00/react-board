@@ -7,8 +7,6 @@ import {
 } from '../actions/boardColumn';
 import Rx from 'rxjs';
 
-const boardColumnAction$ = new Rx.Subject();
-
 let initState = {
 	columnEdit: {},
 	columns: {
@@ -100,13 +98,7 @@ const cc = (state, action) => {
 	}
 }
 
-const ccStore$ = boardColumnAction$
-				.startWith(initState.columns)
-				.scan(cc);
-
-
 export default combineReducers({
   columnEdit,
   columns,
-  ccStore$
 });
