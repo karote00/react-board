@@ -27,6 +27,7 @@ const crashReporter = store => next => action => {
   }
 }
 
+/** you can also use redux-logger and other middleware */
 export default (preloadedState) => {
   return createStore(
     reducer,
