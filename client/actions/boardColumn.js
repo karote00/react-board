@@ -1,18 +1,4 @@
 export const TOGGLE_EDIT_ITEM = "TOGGLE_EDIT_ITEM";
-
-export const GET_COLUMNS = {
-	REQUEST: 'GET_COLUMNS_REQUEST',
-	SUCCESS: 'GET_COLUMNS_SUCCESS',
-	FAILED: 'GET_COLUMNS_FAILED'
-}
-
-export const ADD_COLUMN = {
-	REQUEST: 'ADD_COLUMN_REQUEST',
-	SUCCESS: 'ADD_COLUMN_SUCCESS',
-	FAILED: 'ADD_COLUMN_FAILED'
-}
-
-/** regular action */
 export const toggleEditItem = (id, item) => {
 	return {
 		type: TOGGLE_EDIT_ITEM,
@@ -23,6 +9,11 @@ export const toggleEditItem = (id, item) => {
 	}
 }
 
+export const GET_COLUMNS = {
+	REQUEST: 'GET_COLUMNS_REQUEST',
+	SUCCESS: 'GET_COLUMNS_SUCCESS',
+	FAILED: 'GET_COLUMNS_FAILED'
+}
 export const getColumns = (status, columns) => {
 	return {
 		type: GET_COLUMNS[status],
@@ -38,11 +29,11 @@ export const getColumnsRequest = () => {
 	}
 };
 
-export const getColumnsSuccess = (data) => {
+export const getColumnsSuccess = (columns) => {
 	return {
 		type: GET_COLUMNS.SUCCESS,
 		payload: {
-			columns: data
+			columns
 		}
 	}
 }
@@ -53,6 +44,11 @@ export const getColumnsFailed = () => {
 	}
 }
 
+export const ADD_COLUMN = {
+	REQUEST: 'ADD_COLUMN_REQUEST',
+	SUCCESS: 'ADD_COLUMN_SUCCESS',
+	FAILED: 'ADD_COLUMN_FAILED'
+}
 export const addColumn = (status, column) => {
 	return {
 		type: ADD_COLUMN[status],
