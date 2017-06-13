@@ -5,7 +5,6 @@ import VisibleBoardColumn from '../containers/VisibleBoardColumn';
 import '../style/main.scss';
 import '../style/components/board.scss';
 
-
 class Board extends Component {
 	constructor(props) {
 		super(props);
