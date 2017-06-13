@@ -32,14 +32,6 @@ export const getColumns = (status, columns) => {
 	}
 }
 
-// next: (res) => res.json()
-// 								.then(data => {
-// 									self.setStorage('columns', JSON.stringify(data));
-// 									dispatch(getColumns('SUCCESS', data))
-// 								}),
-// 				error: (err) => dispatch(getColumns('FAILED')),
-// 				completed: () => {}
-
 export const getColumnsRequest = () => {
 	return {
 		type: GET_COLUMNS.REQUEST,
