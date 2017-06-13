@@ -9,25 +9,9 @@ const api = {
 			setTimeout(() => resolve(item), TIMEOUT);
 		});
 	},
-	getColumns(dispatch) {
-		const self = this;
-		let columns = this.getStorage('columns');
-
-		if (!columns || Object.keys(columns).length == 0) {
-			const result = Rx.Observable.fromPromise(fetch('./client/mock/columns.json'));
-			dispatch(getColumns('REQUEST'))
-			result.subscribe({
-				next: (res) => res.json()
-								.then(data => {
-									self.setStorage('columns', JSON.stringify(data));
-									dispatch(getColumns('SUCCESS', data))
-								}),
-				error: (err) => dispatch(getColumns('FAILED')),
-				completed: () => {}
-			})
-		} else {
-			dispatch(getColumns('SUCCESS', columns))
-		}
+	getColumns(observer) {
+		const result = Rx.Observable.fromPromise(fetch('./client/mock/columns.json'));
+		result.subscribe(observer)
 	},
 	addColumn(column) {
 		return new Promise((resolve, reject) => {
