@@ -4,6 +4,7 @@
 2. Redux-Saga
 3. Promise, Async and Await
 4. RxJs
+5. Custom middleware for logger
 
 Also use NodeJs, Webpack and Babel for development environment.
 
