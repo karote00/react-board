@@ -1,3 +1,6 @@
+import Rx from 'rxjs';
+import { getColumns, addColumn } from '../actions/boardColumn';
+
 const TIMEOUT = 1000;
 
 const api = {
@@ -6,25 +9,25 @@ const api = {
 			setTimeout(() => resolve(item), TIMEOUT);
 		});
 	},
-	getColumns() {
+	getColumns(dispatch) {
 		const self = this;
-		return new Promise((resolve, reject) => {
-			let columns = this.getStorage('columns');
+		let columns = this.getStorage('columns');
 
-			if (!columns || Object.keys(columns).length == 0) {
-				fetch('./client/mock/columns.json', {method: 'get'})
-					.then(res => {
-						return res.json();
-					})
-					.then(r => {
-						self.setStorage('columns', JSON.stringify(r));
-						return resolve(r)
-					})
-					.catch(err => reject(err));
-			} else {
-				resolve(columns);
-			}
-		})
+		if (!columns || Object.keys(columns).length == 0) {
+			const result = Rx.Observable.fromPromise(fetch('./client/mock/columns.json'));
+			dispatch(getColumns('REQUEST'))
+			result.subscribe({
+				next: (res) => res.json()
+								.then(data => {
+									self.setStorage('columns', JSON.stringify(data));
+									dispatch(getColumns('SUCCESS', data))
+								}),
+				error: (err) => dispatch(getColumns('FAILED')),
+				completed: () => {}
+			})
+		} else {
+			dispatch(getColumns('SUCCESS', columns))
+		}
 	},
 	addColumn(column) {
 		return new Promise((resolve, reject) => {

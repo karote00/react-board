@@ -2,8 +2,12 @@ import { combineReducers } from 'redux';
 import {
 	TOGGLE_EDIT_ITEM,
 	GET_COLUMNS,
-	ADD_COLUMN
+	ADD_COLUMN,
+	columnsAction
 } from '../actions/boardColumn';
+import Rx from 'rxjs';
+
+const boardColumnAction$ = new Rx.Subject();
 
 let initState = {
 	columnEdit: {},
@@ -76,7 +80,33 @@ function columns(state = initState.columns, action) {
 	}
 }
 
+const cc = (state, action) => {
+	switch(action.type) {
+		case ADD_COLUMN.REQUEST:
+			return {
+				...state,
+				status: 'PENDING'
+			};
+		case ADD_COLUMN.SUCCESS:
+			return {
+				...state,
+				status: 'NORMAL'
+			};
+		case ADD_COLUMN.FAILED:
+			return {
+				...state,
+				status: 'FAILED'
+			};
+	}
+}
+
+const ccStore$ = boardColumnAction$
+				.startWith(initState.columns)
+				.scan(cc);
+
+
 export default combineReducers({
   columnEdit,
-  columns
+  columns,
+  ccStore$
 });

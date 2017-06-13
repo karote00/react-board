@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { default as columns } from '../reducers/boardColumn';
 import { getColumns, addColumn } from '../actions/boardColumn';
+import { ccStore$ } from '../reducers/boardColumn';
 import BoardColumn from '../components/BoardColumn';
 import api from '../services';
 
@@ -12,16 +13,7 @@ const mapStateToProps = (state, action) => {
 
 const mapDispatchToProps = (dispatch) => {
 	const maps = {
-		getColumns: async (item) => {
-			dispatch(getColumns('REQUEST'));
-
-			try {
-				const columns = await api.getColumns(item);
-				dispatch(getColumns('SUCCESS', columns));
-			} catch(err) {
-				dispatch(getColumns('FAILED'));
-			}
-		},
+		getColumns: () => api.getColumns(dispatch),
 		addColumn: async (item) => {
 			dispatch(addColumn('REQUEST'));
 
