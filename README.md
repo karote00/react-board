@@ -6,3 +6,5 @@
 4. RxJs
 
 Also use NodeJs, Webpack and Babel for development environment.
+
+*This is just a sample code. So everywhere is mess. Don't care about that~
