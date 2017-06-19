@@ -21,3 +21,8 @@ npm i
 ```
 npm start
 ```
+
+### Build Prod
+```
+npm run build:client
+```
