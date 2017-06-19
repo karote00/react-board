@@ -87,17 +87,17 @@ const config = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-  config.output.publicPath = '/dist';
+  config.output.publicPath = './';
   config.output.filename = '[name].[hash].js'
   config.output.path = publicPath;
 
   config.plugins.push(
     // minify JS
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     warnings: false
-    //   }
-    // })
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
     // }),
     // auto generate service worker
     // new SWPrecachePlugin({
