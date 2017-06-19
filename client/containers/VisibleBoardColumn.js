@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 			let columns = api.getStorage('columns');
 			if (!columns || Object.keys(columns).length == 0) {
 				let observer = {
-					next: (res) => res.json().then(data => dispatch(getColumnsSuccess(data))),
+					next: (data) => dispatch(getColumnsSuccess(data)),
 					error: (err) => dispatch(getColumnsFailed()),
 					completed: () => {}
 				}
