@@ -1,6 +1,6 @@
-const env = {
+const envConfig = {
 	port: 5772,
 	isProd: process.env.NODE_ENV === 'production'
 }
 
-module.exports = env;
+module.exports = envConfig;

@@ -3,7 +3,7 @@
 const path            = require('path');
 const express         = require('express');
 const webpackConfig   = require('./webpack.config.js');
-const envConfig       = require('./config/env.js');
+const envConfig       = require('./config/envConfig.js');
 const resolve         = file => path.resolve(__dirname, file);
 const isProd          = envConfig.isProd;
 const port            = envConfig.port;
