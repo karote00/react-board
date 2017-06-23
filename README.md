@@ -1,5 +1,6 @@
 ## Practice how to build react app with belows.
 
+In this practice, I use a variety of methods as belows to achieve this.
 1. React-Redux
 2. Redux-Saga
 3. Promise, Async and Await
